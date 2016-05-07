@@ -5,7 +5,6 @@ LIBFT_DIR=./libft
 LIBFT_INC_DIR=$(LIBFT_DIR)/includes
 LIBFT_OBJ_DIR=$(LIBFT_DIR)/objs
 LIBFT_SRC_DIR=$(LIBFT_DIR)/srcs
-LIBFT_OBJS=$(patsubst %.c,$(LIBFT_OBJ_DIR)/%.o,$(shell ls "$(LIBFT_SRC_DIR)" | grep .c))
 
 INC_DIR=./includes
 SRC_DIR=./srcs
@@ -27,7 +26,7 @@ LD=ar -rcs
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT_OBJS)
+$(NAME): $(OBJS)
 	@printf "\nLink %s (%d objects)\n" "$@" "$(NUM_OBJS)"
 	@$(LD) $(NAME) $(OBJS)
 
