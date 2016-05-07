@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/30 10:15:36 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/03 21:10:06 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/07 18:55:30 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			ft_printf_write_string_pad(t_printf_env *env,
 		: ft_printf_pad_l;
 	ft_printf_pad_set(&env->padder, func, str, padc);
 	env->padder.func(&env->padder);
-	ft_printf_write(env, env->padder.buf, env->padder.max);
+	ft_printf_write(env, env->padder.buf, ft_strlen(env->padder.buf));
 	ft_printf_pad_reset(&env->padder);
 	return (env->code);
 }
@@ -92,7 +92,7 @@ int			ft_printf_write_number_pad(t_printf_env *env,
 	{
 		if (arg->sign)
 		{
-			ft_strnrot_one_r(buf, ft_strlen(buf));
+			ft_strnrot_one_r(buf, len);
 			buf[0] = '+';
 		}
 	}
@@ -100,7 +100,7 @@ int			ft_printf_write_number_pad(t_printf_env *env,
 	{
 		if ((env->options & PO_BLANK) != 0)
 		{
-			ft_strnrot_one_r(buf, ft_strlen(buf));
+			ft_strnrot_one_r(buf, len);
 			buf[0] = ' ';
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/30 07:19:34 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/03 20:27:10 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/07 14:11:23 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef enum				e_printf_conv
 	PC_STRING_LO,
 	PC_STRING_UP,
 	PC_POINTER_LO,
+	PC_FLOAT_LO,
+	PC_FLOAT_UP,
 	PC_DECIMAL_LO,
 	PC_DECIMAL_UP,
 	PC_INTEGER_LO,
@@ -81,6 +83,9 @@ typedef enum				e_printf_size_mods
 	PSM_CHAR,
 	PSM_SHORT,
 	PSM_INT,
+	PSM_FLOAT,
+	PSM_DOUBLE,
+	PSM_LDOUBLE,
 	PSM_LONG,
 	PSM_LLONG,
 	PSM_INTMAXT,
@@ -132,6 +137,8 @@ typedef union				u_printf_arg_value
 	short					s;
 	int						i;
 	unsigned				u;
+	double					d;
+	float					f;
 	long					l;
 	long long				ll;
 	intmax_t				it;
@@ -205,6 +212,12 @@ int							ft_printf_arg_get_short(t_printf_env *env,
 													t_printf_arg *arg);
 int							ft_printf_arg_get_int(t_printf_env *env,
 												  t_printf_arg *arg);
+int							ft_printf_arg_get_float(t_printf_env *env,
+													 t_printf_arg *arg);
+int							ft_printf_arg_get_double(t_printf_env *env,
+													 t_printf_arg *arg);
+int							ft_printf_arg_get_ldouble(t_printf_env *env,
+													 t_printf_arg *arg);
 int							ft_printf_arg_get_uint(t_printf_env *env,
 												   t_printf_arg *arg);
 int							ft_printf_arg_get_uchar(t_printf_env *env,
@@ -222,6 +235,12 @@ char						*ft_printf_arg_stringer_int(t_printf_env *env,
 														t_printf_arg const *arg,
 														unsigned base);
 
+char						*ft_printf_arg_stringer_float(t_printf_env *env,
+														  t_printf_arg const *arg,
+														  unsigned base);
+char						*ft_printf_arg_stringer_double(t_printf_env *env,
+														   t_printf_arg const *arg,
+														   unsigned base);
 char						*ft_printf_arg_stringer_uint(t_printf_env *env,
 														 t_printf_arg const *arg,
 														 unsigned base);
@@ -354,6 +373,8 @@ t_printf_trigger const		*ft_printf_find_trigger(char const *name,
 
 int							ft_printf_conv_string(t_printf_env *env);
 int							ft_printf_conv_pointer(t_printf_env *env);
+int							ft_printf_conv_float(t_printf_env *env);
+int							ft_printf_conv_double(t_printf_env *env);
 int							ft_printf_conv_decimal(t_printf_env *env);
 int							ft_printf_conv_octal(t_printf_env *env);
 int							ft_printf_conv_binary(t_printf_env *env);
@@ -370,7 +391,6 @@ int							ft_printf_flag_space(t_printf_env *env);
 int							ft_printf_size_mod_char(t_printf_env *env);
 int							ft_printf_size_mod_short(t_printf_env *env);
 int							ft_printf_size_mod_int(t_printf_env *env);
-int							ft_printf_size_mod_uint(t_printf_env *env);
 int							ft_printf_size_mod_long(t_printf_env *env);
 int							ft_printf_size_mod_llong(t_printf_env *env);
 int							ft_printf_size_mod_intmaxt(t_printf_env *env);

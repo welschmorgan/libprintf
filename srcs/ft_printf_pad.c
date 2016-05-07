@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/30 13:33:18 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/01 21:37:11 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/07 18:45:52 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,14 @@ int							ft_printf_pad_set(t_printf_padder *pad,
 	pad->min = pad->env->prec.values[0];
 	pad->max = pad->env->prec.values[1];
 	pad->len = (int)ft_strlen(str);
-	if (pad->min >= 0)
-		pad->len = pad->len < pad->min ? pad->min : pad->len;
-	if (pad->max >= 0)
-		pad->len = pad->len > pad->max ? pad->max : pad->len;
-	pad->min = pad->min < 0 ? pad->len : pad->min;
-	pad->max = pad->max < 0 ? pad->len : pad->max;
+	if (pad->min >= 0 && pad->len < pad->min)
+		pad->len = pad->min;
+	if (pad->max >= 0 && pad->len > pad->max)
+		pad->len = pad->max;
 	pad->ch = c;
-	pad->buf = ft_strnew(pad->max);
+	pad->buf = ft_strnew(pad->len);
 	if (pad->buf)
-		ft_strncpy(pad->buf, pad->str, pad->max);
+		ft_strncpy(pad->buf, str, pad->len);
 	pad->func = func;
 	return (0);
 }

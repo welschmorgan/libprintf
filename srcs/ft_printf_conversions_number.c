@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 14:57:09 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/03 21:24:44 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/07 16:53:03 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,25 @@ int							ft_printf_conv_decimal(t_printf_env *env)
 {
 	if (env->upper)
 		env->size_modifier = PSM_LONG;
+	ft_printf_arg_get(env, env->size_modifier, &env->arg);
+	ft_printf_write_number_pad(env, &env->arg, 10, NULL);
+	return (env->code);
+}
+
+int							ft_printf_conv_float(t_printf_env *env)
+{
+	env->size_modifier = PSM_FLOAT;
+	ft_printf_arg_get(env, env->size_modifier, &env->arg);
+	ft_printf_write_number_pad(env, &env->arg, 10, NULL);
+	return (env->code);
+}
+
+int							ft_printf_conv_double(t_printf_env *env)
+{
+	if (env->size_modifier == PSM_LONG || env->upper)
+		env->size_modifier = PSM_LDOUBLE;
+	else
+		env->size_modifier = PSM_DOUBLE;
 	ft_printf_arg_get(env, env->size_modifier, &env->arg);
 	ft_printf_write_number_pad(env, &env->arg, 10, NULL);
 	return (env->code);

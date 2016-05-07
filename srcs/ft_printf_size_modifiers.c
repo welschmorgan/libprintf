@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 14:59:56 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/01 17:56:07 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/07 14:00:58 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ int							ft_printf_size_mod_short(t_printf_env *env)
 int							ft_printf_size_mod_int(t_printf_env *env)
 {
 	env->size_modifier = PSM_INT;
+	return (env->code);
+}
+
+int							ft_printf_size_mod_double(t_printf_env *env)
+{
+	env->size_modifier = PSM_DOUBLE;
 	return (env->code);
 }
 

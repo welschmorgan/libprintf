@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 15:22:40 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/02 01:17:33 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/07 17:02:09 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,32 @@ static t_printf_arg	const	g_printf_args[PSM_COUNT + 1] = {
 	{PSM_CHAR, ft_printf_arg_get_char, ft_printf_arg_stringer_int, 1, {}},
 	{PSM_SHORT, ft_printf_arg_get_short, ft_printf_arg_stringer_int, 1, {}},
 	{PSM_INT, ft_printf_arg_get_int, ft_printf_arg_stringer_int, 1, {}},
+	{PSM_FLOAT, ft_printf_arg_get_float, ft_printf_arg_stringer_float, 1, {}},
+	{PSM_DOUBLE, ft_printf_arg_get_double, ft_printf_arg_stringer_double, 1, {}},
+	{PSM_LDOUBLE, ft_printf_arg_get_ldouble, ft_printf_arg_stringer_double, 1, {}},
 	{PSM_LONG, ft_printf_arg_get_long, ft_printf_arg_stringer_long, 1, {}},
 	{PSM_LLONG, ft_printf_arg_get_llong, ft_printf_arg_stringer_llong, 1, {}},
 	{PSM_INTMAXT, ft_printf_arg_get_imax, ft_printf_arg_stringer_imaxt, 1, {}},
 	{PSM_SIZET, ft_printf_arg_get_sizet, ft_printf_arg_stringer_sizet, 1, {}},
 	{PSM_UNKNOWN, NULL, NULL, 0, {}}
 };
+
+char						*ft_printf_arg_stringer_double(t_printf_env *env,
+														   t_printf_arg const *arg,
+														   unsigned base)
+{
+	(void)env;
+	return (ft_ftoa(arg->value.d, 14, base));
+}
+
+char						*ft_printf_arg_stringer_float(t_printf_env *env,
+														   t_printf_arg const *arg,
+														   unsigned base)
+{
+	(void)env;
+	return (ft_ftoa(arg->value.f, env->prec.values[1], base));
+}
+
 
 char						*ft_printf_arg_stringer_int(t_printf_env *env,
 														t_printf_arg const *arg,
@@ -79,6 +99,33 @@ int							ft_printf_arg_get_short(t_printf_env *env,
 	arg->sign = arg->value.s < 0 ? -1 : 1;
 	return (0);
 }
+int							ft_printf_arg_get_float(t_printf_env *env,
+													t_printf_arg *arg)
+{
+	arg->type = PSM_FLOAT;
+	arg->value.f = (float)va_arg(env->args, double);
+	arg->sign = arg->value.f < -FT_EPSILON ? -1 : 1;
+	return (0);
+}
+
+int							ft_printf_arg_get_double(t_printf_env *env,
+													 t_printf_arg *arg)
+{
+	arg->type = PSM_DOUBLE;
+	arg->value.d = (double)va_arg(env->args, double);
+	arg->sign = arg->value.d < -FT_EPSILON ? -1 : 1;
+	return (0);
+}
+
+int							ft_printf_arg_get_ldouble(t_printf_env *env,
+													 t_printf_arg *arg)
+{
+	arg->type = PSM_LDOUBLE;
+	arg->value.d = (long double)va_arg(env->args, long double);
+	arg->sign = arg->value.d < -FT_EPSILON ? -1 : 1;
+	return (0);
+}
+
 int							ft_printf_arg_get_int(t_printf_env *env,
 												  t_printf_arg *arg)
 {

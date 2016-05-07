@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/30 08:56:57 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/02 00:26:17 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/07 14:11:15 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static t_printf_trigger const	g_printf_convs[PC_COUNT + 1] = {
 	{PC_STRING_LO, "s", ft_printf_conv_string},
 	{PC_STRING_UP, "S", ft_printf_conv_string},
 	{PC_POINTER_LO, "p", ft_printf_conv_pointer},
+	{PC_FLOAT_LO, "f", ft_printf_conv_float},
+	{PC_FLOAT_UP, "F", ft_printf_conv_float},
 	{PC_DECIMAL_LO, "d", ft_printf_conv_decimal},
 	{PC_DECIMAL_UP, "D", ft_printf_conv_decimal},
 	{PC_INTEGER_LO, "i", ft_printf_conv_decimal},
@@ -47,6 +49,9 @@ static t_printf_trigger const	g_printf_size_mods[PSM_COUNT + 1] = {
 	{PSM_CHAR, "hh", ft_printf_size_mod_char},
 	{PSM_SHORT, "h", ft_printf_size_mod_short},
 	{PSM_INT, "", ft_printf_size_mod_int},
+	{PSM_FLOAT, "", NULL},
+	{PSM_DOUBLE, "", NULL},
+	{PSM_LDOUBLE, "", NULL},
 	{PSM_LONG, "l", ft_printf_size_mod_long},
 	{PSM_LLONG, "ll", ft_printf_size_mod_llong},
 	{PSM_INTMAXT, "j", ft_printf_size_mod_intmaxt},
