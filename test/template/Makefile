@@ -12,10 +12,10 @@ APPS=$(patsubst %.c,%.run,$(SRCS))
 DSYMS=$(patsubst %.c,%.run.dSYM,$(SRCS))
 NOBJS=$(shell echo "$(APPS) $(OBJS)" | wc -w)
 
-LOBJS=$(LIBFTPRINTF_DIR)/libftprintf.a $(LIBFT_DIR)/libft.a
+LOBJS=$(LIBFTPRINTF_DIR)/libftprintf_d.a $(LIBFT_DIR)/libft_d.a
 
 CFLAGS = -Wall -Wextra -Werror -I. -I.. -I../.. -I$(LIBFT_DIR)/$(INC_DIR) -I$(LIBFTPRINTF_DIR)/$(INC_DIR) -I$(COMM_DIR) -g
-LDFLAGS = -L$(LIBFT_DIR) -L$(LIBFTPRINTF_DIR) -lftprintf -lft
+LDFLAGS = -L$(LIBFT_DIR) -L$(LIBFTPRINTF_DIR) -lftprintf_d -lft_d
 
 CC = clang
 LD = $(CC)

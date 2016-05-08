@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 13:40:24 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/04/23 13:12:31 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/08 12:40:57 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 static t_test_suite	*g_test_suite = NULL;
 int					g_pipe_fd[2];
 
+
+static char		*get_hline()
+{
+	static char		hline[81] = {0};
+
+	ft_memset((void*)hline, '=', 80);
+	return (hline);
+}
 
 int		assert_test(t_test *test,
 					int cond,
@@ -145,7 +153,7 @@ int				error_test(t_test *test, int code, char const *fmt, ...)
 }
 
 
-int				log_test(t_test *test, char const *fmt, ...)
+int				log_test(t_test const *test, char const *fmt, ...)
 {
 	char		buf[1024];
 	va_list		args;
@@ -168,18 +176,15 @@ int				run_test(t_test *test)
 {
 	if (!test)
 		return (1);
-	static char	hline[80] = {0};
 
-	if (!hline[0])
-		memset(&hline[0], '-', 80);
 	memset(&test->error[0], 0, TEST_ERROR_SIZE);
-	log_test(test, "%s\n* Starting test '%s':", hline, test->name);
+	log_test(test, "%40.40s\n* Starting test '%s':\n%40.40s", get_hline(), test->name, get_hline());
 	test->signal = -1;
 	test->code = test->func(test);
 	if (test->signal > 0)
-		log_test(test, "\nsignal: %i", test->signal);
+		log_test(test, "signal: %i", test->signal);
 	if (test->code)
-		log_test(test, "\nreturned: %i -> %s", test->code, test->error);
+		log_test(test, "returned: %i -> %s", test->code, test->error);
 	return (test->code);
 }
 
@@ -270,11 +275,43 @@ int				run_test_suite(t_test_suite *suite)
 	return (suite->code);
 }
 
-void			reset_test_suite(t_test_suite *suite)
+void			print_test_suite_summary(t_test_suite *suite)
 {
+	t_test const	*ptest;
+	t_dnode			*node;
+	int				n;
+
+
 	if (!suite)
 		return ;
+	node = suite->tests.tail;
+	n = 0;
+	while (node)
+	{
+		ptest = (t_test const *)node->data;
+		if (node == suite->tests.tail)
+			log_test(ptest, "%40.40s\n** Tests Results:", get_hline());
+		if (ptest->code == EXIT_SUCCESS)
+			log_test(ptest, "*\ttest[%d]: %s: OK!",
+					 n, ptest->name);
+		else
+			log_test(ptest, "*\ttest[%d]: %s\n\t-> return:%d\terror:\"%s\"\tsignal:%d",
+					 n, ptest->name,
+					 ptest->code, ptest->error, ptest->signal);
+		n++;
+		node = node->next;
+		if (!node)
+			log_test(ptest, "%40.40s\n", get_hline());
+	}
+}
+
+void			reset_test_suite(t_test_suite *suite)
+{
 	t_dnode		*node;
+
+	if (!suite)
+		return ;
+	print_test_suite_summary(suite);
 	node = suite->tests.tail;
 	while (node)
 	{

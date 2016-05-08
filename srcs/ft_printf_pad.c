@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/30 13:33:18 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/07 18:45:52 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/08 10:53:01 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,12 @@ int							ft_printf_pad_set(t_printf_padder *pad,
 	pad->len = (int)ft_strlen(str);
 	if (pad->min >= 0 && pad->len < pad->min)
 		pad->len = pad->min;
-	if (pad->max >= 0 && pad->len > pad->max)
-		pad->len = pad->max;
+	if (pad->env->converter->type == PC_STRING_LO
+		|| pad->env->converter->type == PC_STRING_UP)
+	{
+		if (pad->max >= 0 && pad->len > pad->max)
+			pad->len = pad->max;
+	}
 	pad->ch = c;
 	pad->buf = ft_strnew(pad->len);
 	if (pad->buf)

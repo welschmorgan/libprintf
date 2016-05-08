@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 14:57:49 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/02 22:02:31 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/08 11:05:46 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int							ft_printf_conv_pointer(t_printf_env *env)
 	addr = (long)va_arg(env->args, void*);
 	if (!addr)
 	{
-		ft_printf_write(env, "(null)", 6);
+		ft_printf_write(env, "(nil)", 5);
 	}
 	else
 	{

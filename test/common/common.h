@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 13:37:45 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/04/02 12:16:10 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/08 12:26:54 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int						reset_test(t_test *test);
 int						run_test(t_test *test);
 t_test					*current_test();
 int						error_test(t_test *test, int code, char const *fmt, ...);
-int						log_test(t_test *test, char const *fmt, ...);
+int						log_test(t_test const *test, char const *fmt, ...);
 int						assert_test(t_test *test,
 									int cond,
 									char const *condstr,

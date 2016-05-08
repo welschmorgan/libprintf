@@ -14,8 +14,8 @@ NOBJS=$(shell echo $(OBJS) $(COBJS) | wc -w)
 LIBFT_DIR=../libft
 LIBFTPRINTF_DIR=..
 
-CFLAGS = -Wall -Wextra -Werror -I. -I.. -I$(LIBFT_DIR)/$(INC_DIR) -I$(LIBFTPRINTF_DIR)/$(INC_DIR) -I$(COMM_DIR) -g
-LDFLAGS = -L$(LIBFT_DIR)/ -L$(LIBFTPRINTF_DIR)/ -lft -lftprintf
+CFLAGS = -Wall -Wextra -Werror -I. -I.. -I$(LIBFT_DIR)/$(INC_DIR) -I$(LIBFTPRINTF_DIR)/$(INC_DIR) -I$(COMM_DIR) -ggdb
+LDFLAGS = -L$(LIBFT_DIR)/ -L$(LIBFTPRINTF_DIR)/ -lft_d -lftprintf_d
 
 CC = clang
 LD = $(CC)

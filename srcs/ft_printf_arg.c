@@ -6,7 +6,7 @@
 /*   By: mwelsch <mwelsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 15:22:40 by mwelsch           #+#    #+#             */
-/*   Updated: 2016/05/07 17:02:09 by mwelsch          ###   ########.fr       */
+/*   Updated: 2016/05/08 10:49:12 by mwelsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,13 @@ char						*ft_printf_arg_stringer_int(t_printf_env *env,
 {
 	(void)env;
 	if ((env->options & PO_UNSIGNED) != 0)
+	{
+		if (env->prec.values[1] == 0 && arg->value.u == 0)
+			return (0);
 		return (ft_ubtoa(arg->value.u, base));
+	}
+		if (env->prec.values[1] == 0 && arg->value.i == 0)
+			return (0);
 	return (ft_ibtoa(arg->value.i, base));
 }
 
