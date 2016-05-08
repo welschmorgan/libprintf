@@ -1,22 +1,22 @@
 Pretty much follows the posix implementation.
 Few mac relics like D ..
 
-* Follows the format: *
+* Follows the format:
 	```
-	%<flag><min_field_width>.<precision><length_modifier><conversion_specifier>
+	* %<flag><min_field_width>.<precision><length_modifier><conversion_specifier>
 	```
-* Flags: *
+* Flags:
 	```
-	#: alternate form
-	-: pad on the right (left-aligned)
-	+: shows sign at all times
+	* #: alternate form
+	* -: pad on the right (left-aligned)
+	* +: shows sign at all times
 	```
-* Length modifier: *
+* Length modifier:
   ```
-  hh: char
-  h: short
-  l: long
-  ll: long long
+  * hh: char
+  * h: short
+  * l: long
+  * ll: long long
   ```
 
 * Conversion specifier: *
